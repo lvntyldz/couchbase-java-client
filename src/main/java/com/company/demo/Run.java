@@ -18,26 +18,15 @@ public class Run {
         Bucket bucket = cluster.bucket("example");
         Collection collection = bucket.defaultCollection();
 
-        JsonArray jobInfo = JsonArray.create();
-        jobInfo.add(JsonObject.create().put("title", "Junior Software Engineer").put("experience", 2).put("skils", "Java,Oracle"));
-        jobInfo.add(JsonObject.create().put("title", "Senior Software Engineer").put("experience", 6).put("skils", "mongoDb,hadoop"));
+        Job job = new Job("Junior Software Engineer",1,new String[]{"Java","Oracle"});
+        Employee employee1 = new Employee("Ali","ALİOĞLU",20,job);
+        MutationResult employe1Res = collection.upsert("employe1", employee1);
+        System.out.println("Employee1 Result : "+employe1Res);
 
-        JsonObject person1 = JsonObject.create()
-                .put("firstname", "Ali")
-                .put("lastname", "ALİOĞLU")
-                .put("age", 30)
-                .put("job", jobInfo);
-
-        JsonObject person2 = JsonObject.create()
-                .put("firstname", "Veli")
-                .put("lastname", "VELİOĞLU")
-                .put("age", 20)
-                .put("job", jobInfo);
-
-        MutationResult person1Result = collection.upsert("person1", person1);
-        System.out.println("Person1 Result : "+person1Result);
-        MutationResult person2Result = collection.upsert("person2", person2);
-        System.out.println("Person2 Result : "+person2Result);
+        Job job2 = new Job("Senior Software Engineer",10,new String[]{"Oracle","MongoDB","C++","Java"});
+        Employee employee2 = new Employee("Veli","VELİOĞLU",30,job2);
+        MutationResult employe2Res = collection.upsert("employe2", employee2);
+        System.out.println("Employee2 Result : "+employe2Res);
     }
 
 }
